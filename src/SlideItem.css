@@ -1,0 +1,39 @@
+.slideItem {
+  width: 100%;
+  display: flex;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #f0c146;
+  width: 300px;
+  overflow: hidden;
+}
+
+.slideItem_container {
+  display: flex;
+}
+
+.slideItem_container > img {
+  height: 60px;
+  object-fit: contain;
+  margin-right: 5px;
+  padding: 10px;
+}
+
+.slideItem_container > p {
+  font-size: 10px;
+  padding-top: 7px;
+}
+
+.cancelButton {
+  font-size: 23px !important;
+  cursor: pointer;
+  padding-right: 5px;
+  padding-top: 1px;
+  padding-left: 5px;
+}
+
+.cancelButton:hover {
+  color: gray;
+}

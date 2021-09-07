@@ -3,6 +3,10 @@ import "./Home.css";
 import Product from "./Product";
 
 function Home() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="home">
       <div className="home_container">
@@ -62,6 +66,9 @@ function Home() {
             rating={4}
             image="https://images-na.ssl-images-amazon.com/images/I/6125mFrzr6L._AC_SX355_.jpg"
           />
+        </div>
+        <div className="backToTop" onClick={scrollToTop}>
+          <p>Back To Top</p>
         </div>
       </div>
     </div>

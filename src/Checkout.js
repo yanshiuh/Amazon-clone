@@ -17,12 +17,12 @@ function Checkout() {
         />
 
         <div>
-          <h3>Hello, {user?.email}</h3>
+          <h3>Hello, {user?.email || "Guest"}</h3>
           <h2 className="checkout_title">Your Shopping Basket</h2>
 
           {/* Basket item*/}
 
-          {basket.map((item) => (
+          {/* {basket.map((item) => (
             <BasketItem
               id={item.id}
               title={item.title}
@@ -30,7 +30,23 @@ function Checkout() {
               price={item.price}
               rating={item.rating}
             />
-          ))}
+          ))} */}
+
+          {basket.length == 0 ? (
+            <div className="noItemDiv">
+              <h4>No item has been selected</h4>
+            </div>
+          ) : (
+            basket.map((item) => (
+              <BasketItem
+                id={item.id}
+                title={item.title}
+                image={item.image}
+                price={item.price}
+                rating={item.rating}
+              />
+            ))
+          )}
         </div>
       </div>
 

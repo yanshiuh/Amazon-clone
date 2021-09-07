@@ -48,7 +48,12 @@
   flex-direction: column;
   margin-left: 10px;
   margin-right: 10px;
+  transition: all 0.25s;
   cursor: pointer;
+}
+
+.header_option:hover {
+  color: #fcbe6d;
 }
 
 .header_optionLineOne {
@@ -65,6 +70,10 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+}
+
+.header_optionBasket:hover {
+  color: #fcbe6d;
 }
 
 .header_basketCount {

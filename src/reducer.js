@@ -1,5 +1,6 @@
 export const initialState = {
   basket: [],
+  tempBasket: [],
   user: null,
 };
 
@@ -33,6 +34,31 @@ const reducer = (state, action) => {
       return {
         ...state,
         basket: newBasket,
+      };
+
+    case "ADD_TO_TEMPBASKET":
+      return {
+        ...state,
+        tempBasket: [...state.tempBasket, action.item],
+      };
+
+    case "REMOVE_FROM_TEMPBASKET":
+      const i = state.tempBasket.findIndex(
+        (basketItem) => basketItem.id === action.id
+      );
+      let newTempBasket = [...state.tempBasket];
+
+      if (i >= 0) {
+        newTempBasket.splice(i, 1);
+      } else {
+        console.warn(
+          `Can't remove product (id: ${action.id} as its not in basket)`
+        );
+      }
+
+      return {
+        ...state,
+        tempBasket: newTempBasket,
       };
 
     case "SET_USER":

@@ -14,4 +14,14 @@
   margin-right: 10px;
   padding: 10px;
   border-bottom: 1px solid lightgray;
+  padding-left: 0px !important;
+}
+
+.noItemDiv {
+  height: 98px;
+  padding-top: 20px;
+}
+
+.noItemDiv > h4 {
+  font-weight: 400;
 }

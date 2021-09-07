@@ -1,0 +1,11 @@
+.showbar {
+  position: fixed;
+  right: 60px;
+  top: 70px;
+  background-color: white;
+  z-index: 999;
+  padding: 10px;
+  border-radius: 10px;
+  width: 250px;
+  background: transparent;
+}

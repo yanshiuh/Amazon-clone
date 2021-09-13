@@ -37,3 +37,7 @@
 .cancelButton:hover {
   color: gray;
 }
+
+.slideItem_container > p {
+  color: rgb(58, 214, 58);
+}

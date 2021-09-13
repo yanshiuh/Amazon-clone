@@ -3,7 +3,7 @@ import "./BasketItem.css";
 import StarIcon from "@material-ui/icons/Star";
 import { useStateValue } from "./StateProvider";
 
-function BasketItem({ id, image, title, price, rating }) {
+function BasketItem({ id, image, title, price, rating, hideButton }) {
   const [{ basket }, dispatch] = useStateValue();
 
   const removeFromBasket = () => {
@@ -32,7 +32,9 @@ function BasketItem({ id, image, title, price, rating }) {
               <StarIcon style={{ color: "gold" }} />
             ))}
         </div>
-        <button onClick={removeFromBasket}>Remove from basket</button>
+        {!hideButton && (
+          <button onClick={removeFromBasket}>Remove from basket</button>
+        )}
       </div>
     </div>
   );

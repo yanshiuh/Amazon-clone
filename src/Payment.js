@@ -8,6 +8,8 @@ import "./Payment.css";
 import { getBasketTotal } from "./reducer";
 import { useStateValue } from "./StateProvider";
 import { useHistory } from "react-router-dom";
+import { db } from "./firebase";
+import firebase from "firebase";
 
 function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
@@ -22,18 +24,24 @@ function Payment() {
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState(true);
 
-  useEffect(() => {
-    // generate the special stripe secret whioch allows us to charge a customer
-    const getClientSecret = async () => {
-      const response = await axios({
-        method: "post",
-        // Stripe expects the total ina currencies subunits
-        url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
-      });
-      setClientSecret(response.data.clientSecret);
-    };
+  // The payment process won't be work successfully as we should subscribe to Blaze Plan in firebase
 
-    getClientSecret();
+  useEffect(() => {
+    console.log("payment start?");
+    // generate the special stripe secret whioch allows us to charge a customer
+    // const getClientSecret = async () => {
+    //   console.log("payment procceed?");
+    //   const response = await axios({
+    //     method: "post",
+    //     url: `/payments/create?total=${getBasketTotal(basket) * 100}`,
+    //   });
+    //   console.log("payment on?");
+    //   setClientSecret(response.data.clientSecret);
+    //   console.log("clientSecret: ", clientSecret);
+    // };
+
+    // getClientSecret();
+    // console.log("payment done?");
   }, [basket]);
 
   console.log("The Secret is >>>", clientSecret);
@@ -42,23 +50,51 @@ function Payment() {
     // do all the fancy stripe stuff
     event.preventDefault();
     setProcessing(true);
+    console.log("payment there?");
 
-    const payload = await stripe
-      .confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: elements.getElement(CardElement),
-        },
-      })
-      .then(({ paymentIntent }) => {
-        // paymentIntent = payment confirmation
-
-        console.log("payment?");
-        setSucceeded(true);
-        setError(null);
-        setProcessing(false);
-
-        history.replace("/orders");
+    if (user) {
+      db.collection("users").add({
+        email: user.email,
+        basket: basket,
+        amount: getBasketTotal(basket),
+        created: firebase.firestore.FieldValue.serverTimestamp(),
       });
+
+      setTimeout(() => {
+        dispatch({
+          type: "EMPTY_BASKET",
+        });
+        history.replace("/orders");
+      }, 2500);
+    }
+
+    // const payload = await stripe
+    //   .confirmCardPayment(clientSecret, {
+    //     payment_method: {
+    //       card: elements.getElement(CardElement),
+    //     },
+    //   })
+    //   .then(({ paymentIntent }) => {
+    //     // paymentIntent = payment confirmation
+
+    //     setSucceeded(true);
+    //     setError(null);
+    //     setProcessing(false);
+    //     console.log("paymnet still proceed?");
+
+    //     db.collection("users").add({
+    //       email: user.email,
+    //       basket: basket,
+    //       amount: getBasketTotal(basket),
+    //       created: firebase.firestore.FieldValue.serverTimestamp(),
+    //     });
+
+    //     dispatch({
+    //       type: "EMPTY_BASKET",
+    //     });
+
+    //     history.replace("/orders");
+    //   });
   };
 
   const handleChange = (event) => {
@@ -132,9 +168,18 @@ function Payment() {
                   prefix={"$"}
                 />
 
-                <button disabled={processing || disabled || succeeded}>
+                <button
+                  disabled={processing || disabled || succeeded || user == null}
+                >
                   <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
                 </button>
+
+                {user ? null : (
+                  <span style={{ color: "red", fontSize: "13px" }}>
+                    {" "}
+                    Please login first before making the payment
+                  </span>
+                )}
               </div>
 
               {/* Errors */}

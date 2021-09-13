@@ -37,3 +37,29 @@
 .noItemDiv {
   padding-left: 20px;
 }
+
+.payment_details > form {
+  max-width: 400px;
+}
+
+.payment_details > h4 {
+  padding-bottom: 20px;
+}
+
+.payment_details > form > div > button {
+  background-color: #f0c14b;
+  border-radius: 2px;
+  width: 100%;
+  height: 30px;
+  border: 1px solid;
+  margin-top: 15px;
+  border-color: #a88734 #9c7e31 #846a29;
+  color: #111;
+  cursor: pointer;
+}
+
+.payment_priceContainer {
+  border: 1px solid lightgray;
+  padding: 20px;
+  margin-top: 20px;
+}

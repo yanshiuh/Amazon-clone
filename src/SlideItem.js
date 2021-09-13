@@ -28,7 +28,7 @@ function SlideItem({ id, image, title }) {
         <img src={image} alt="" />
 
         <p>
-          <strong>{title}&nbsp;</strong>
+          <strong style={{ color: "black" }}>{title}&nbsp;</strong>
           has been added to your basket
         </p>
       </div>

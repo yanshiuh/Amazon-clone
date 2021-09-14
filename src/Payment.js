@@ -181,8 +181,8 @@ function Payment() {
                   <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
                 </button>
 
-                {basket.length == 0 ? null : (
-                  <span style={{ color: "red", fontSize: "11px" }}>
+                {basket.length != 0 ? null : (
+                  <span style={{ color: "red", fontSize: "12px" }}>
                     {" "}
                     Please add the product to basket before making the payment
                   </span>

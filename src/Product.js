@@ -3,9 +3,26 @@ import "./Product.css";
 import StarIcon from "@material-ui/icons/Star";
 import StarHalfIcon from "@material-ui/icons/StarHalf";
 import { useStateValue } from "./StateProvider";
+import { useHistory } from "react-router";
 
 function Product({ id, title, price, rating, image }) {
-  const [{ basket, tempBasket }, dispatch] = useStateValue();
+  const [{ basket, tempBasket, currentItem }, dispatch] = useStateValue();
+  const history = useHistory();
+
+  const toProductDetails = () => {
+    dispatch({
+      type: "SET_CURRENTITEM",
+      item: {
+        id: id,
+        title: title,
+        image: image,
+        price: price,
+        rating: rating,
+      },
+    });
+
+    history.push("./productDetails");
+  };
 
   const addToBasket = () => {
     // dispatch the item into the data layer
@@ -28,6 +45,8 @@ function Product({ id, title, price, rating, image }) {
         image: image,
       },
     });
+
+    history.push("/");
   };
 
   return (
@@ -51,7 +70,7 @@ function Product({ id, title, price, rating, image }) {
         </div>
       </div>
 
-      <img src={image} alt="" />
+      <img src={image} alt="" onClick={toProductDetails} />
 
       <button onClick={addToBasket}>Add to Basket</button>
     </div>

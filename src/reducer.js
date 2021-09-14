@@ -2,6 +2,7 @@ export const initialState = {
   basket: [],
   tempBasket: [],
   user: null,
+  currentItem: null,
 };
 
 // Selector / alternative way for For loop
@@ -71,6 +72,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         user: action.user,
+      };
+
+    case "SET_CURRENTITEM":
+      return {
+        ...state,
+        currentItem: action.item,
       };
 
     default:

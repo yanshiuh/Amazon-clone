@@ -13,6 +13,7 @@ import firebase from "firebase";
 
 function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
+  console.log("basket: ", basket.length);
   const history = useHistory();
 
   const stripe = useStripe();
@@ -169,10 +170,23 @@ function Payment() {
                 />
 
                 <button
-                  disabled={processing || disabled || succeeded || user == null}
+                  disabled={
+                    basket.length == 0 ||
+                    processing ||
+                    disabled ||
+                    succeeded ||
+                    user == null
+                  }
                 >
                   <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
                 </button>
+
+                {basket.length == 0 ? null : (
+                  <span style={{ color: "red", fontSize: "11px" }}>
+                    {" "}
+                    Please add the product to basket before making the payment
+                  </span>
+                )}
 
                 {user ? null : (
                   <span style={{ color: "red", fontSize: "13px" }}>

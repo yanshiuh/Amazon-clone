@@ -7,10 +7,17 @@ import { userInfo } from "os";
 import { useStateValue } from "./StateProvider";
 
 function Order({ order }) {
+  console.log(
+    "orders:",
+    new Date(order.data.created?.toDate()).toLocaleString()
+  );
   return (
     <div className="order">
       <h2>Order</h2>
-      <p>{moment.unix(order.data.created).format("MMMM Do YYYY, h:mma")}</p>
+      {/* <p>{moment.unix(order.data.created).format("MMMM Do YYYY, h:mma")}</p> */}
+      <p style={{ marginTop: "10px" }}>
+        Order Time: {new Date(order.data.created?.toDate()).toLocaleString()}
+      </p>
 
       <p className="order_id">
         <small>Order id: {order.id}</small>
